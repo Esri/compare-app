@@ -1,0 +1,262 @@
+@charset "UTF-8";
+/*
+Copyright 2018 Esri
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.​
+*/
+.app-bookmarks-title {
+  padding: 1em;
+  font-size: 14px;
+  border-bottom: 1px;
+  border-bottom-color: #ccc;
+  border-bottom-style: solid; }
+
+.app-bookmarks {
+  max-height: 400px;
+  min-width: 250px;
+  max-width: 350px;
+  background-color: #fff;
+  border: 1px solid rgba(185, 182, 182, 0.4);
+  line-height: 16px;
+  font-size: 14px;
+  overflow-y: auto; }
+
+.app-bookmarks__loading {
+  padding: 40px;
+  text-align: center; }
+
+.app-bookmarks__list {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.app-bookmarks__item {
+  padding: 8px 12px;
+  border-top: 1px solid rgba(185, 182, 182, 0.4);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center; }
+
+.app-bookmarks__item:hover {
+  background-color: #e6e6e6; }
+
+.app-bookmarks__item:first-child {
+  border-top: none; }
+
+.app-bookmarks__item-icon {
+  margin-right: 5px; }
+
+.app-bookmarks__item-name {
+  flex: 1; }
+
+.app-bookmarks__item--active,
+.app-bookmarks__item--active:hover,
+.app-bookmarks__item--active:focus {
+  color: #333333;
+  background-color: #fff;
+  cursor: default; }
+
+.app-bookmarks__item--active:after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  top: 0;
+  background-color: #404040;
+  width: 100%;
+  z-index: 2;
+  animation: looping-progresss-bar-ani 1500ms linear infinite; }
+
+.app-bookmarks--fade-in {
+  opacity: 0;
+  transition: opacity 375ms ease-out; }
+
+.app-bookmarks--fade-in-active {
+  opacity: 1; }
+
+@keyframes looping-progresss-bar-ani {
+  0% {
+    left: 0%;
+    width: 0%; }
+  20% {
+    left: 0%;
+    width: 20%; }
+  80% {
+    left: 80%;
+    width: 20%; }
+  100% {
+    left: 100%;
+    width: 0%; } }
+
+html[dir="rtl"] .app-bookmarks__item--active:after {
+  animation: looping-progresss-bar-ani-rtl 1500ms linear infinite; }
+
+html[dir="rtl"] .app-bookmarks__item-icon {
+  margin-right: 0;
+  margin-left: 5px; }
+
+@keyframes looping-progresss-bar-ani-rtl {
+  0% {
+    right: 0%;
+    width: 0%; }
+  20% {
+    right: 0%;
+    width: 20%; }
+  80% {
+    right: 80%;
+    width: 20%; }
+  100% {
+    right: 100%;
+    width: 0%; } }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; }
+
+.configurable-application__view-container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center; }
+  .configurable-application__view-container .esri-view {
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    background-image: url(../assets/loader-ie9.gif); }
+
+.configurable-application--loading {
+  text-align: center;
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url(../assets/loader-ie9.gif); }
+  .configurable-application--loading .configurable-application__view-container {
+    display: none; }
+
+.app-error {
+  background-position: top center;
+  padding-top: 60px;
+  width: 80%;
+  position: absolute;
+  z-index: 2;
+  top: 40%;
+  left: 0;
+  text-align: center; }
+
+.app-error .configurable-application__view-container {
+  display: block; }
+
+.hide {
+  display: none; }
+
+.direction-vertical {
+  flex-direction: column; }
+
+.gutter {
+  background-color: rgba(235, 235, 235, 0.8);
+  color: #656565;
+  font-family: "CalciteWebCoreIcons";
+  font-size: 15px;
+  font-weight: bolder; }
+
+.gutter.gutter-horizontal {
+  cursor: ew-resize; }
+
+.gutter.gutter-horizontal:before {
+  content: "\e604";
+  position: absolute;
+  top: 50%;
+  font-size: 20px;
+  font-weight: bolder; }
+
+.gutter.gutter-vertical:before {
+  content: "\e603";
+  position: absolute;
+  left: 50%;
+  font-size: 20px;
+  font-weight: bolder; }
+
+.gutter.gutter-vertical {
+  width: 100%;
+  cursor: ns-resize; }
+
+.split.split-horizontal,
+.gutter.gutter-horizontal {
+  height: 100%; }
+
+.esri-view .inset-map {
+  border: solid 2px #fff;
+  background: #fff;
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(255, 255, 255, 0.65);
+  -moz-box-shadow: 1px 1px 5px 1px rgba(255, 255, 255, 0.65);
+  box-shadow: 1px 1px 5px 1px rgba(255, 255, 255, 0.65);
+  width: 250px;
+  height: 250px;
+  cursor: pointer; }
+
+.column-24 {
+  max-width: 100vw;
+  width: 100vw; }
+
+.top-nav-list {
+  margin: 0.5em; }
+
+.top-nav-list .esri-expand__content--expanded,
+.top-nav-list .esri-expand__panel {
+  display: inline-block; }
+
+.top-nav-list {
+  display: inline-flex;
+  flex-flow: row nowrap; }
+
+.toolbar-buttons {
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  color: inherit; }
+
+.search-top-nav {
+  background: transparent;
+  color: inherit; }
+
+#toolContainer :hover {
+  color: #ccc;
+  border-bottom-color: #ddd;
+  text-decoration: none; }
+
+#toolContainer > div > div.esri-expand__container > div.esri-expand__panel > div {
+  background: transparent;
+  color: inherit; }
+
+html[dir="rtl"] #toolContainer.top-nav-list .esri-icon-collapse:before {
+  content: "\e631"; }
+
+html[dir="rtl"] #toolContainer.top-nav-list .esri-icon-expand:before {
+  content: "\e632"; }
+
+.active {
+  background: #e2f1fb;
+  border: solid 1px #e2f1fb; }

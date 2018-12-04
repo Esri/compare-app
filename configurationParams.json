@@ -1,0 +1,549 @@
+{
+  "configurationSettings": [{
+    "category": "General",
+    "fields": [{
+      "type": "subcategory",
+      "label": "Title Area"
+    }, {
+      "type": "paragraph",
+      "value": "Add a section that displays at the top or bottom of your app where the main app title and optionally some tools display. If you plan on embedding the application in another web site it may be a good idea to turn off the header."
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "header",
+      "label": "Add app header",
+      "tooltip": "Add an app header area that contains the title and optionally the info and search tools",
+      "items": [{
+        "type": "string",
+        "fieldName": "headerPosition",
+        "label": "Location of title area",
+        "tooltip": "Controls the location of the title and toolbar content",
+        "options": [{
+          "label": "Top",
+          "value": "top"
+        }, {
+          "label": "Bottom",
+          "value": "bottom"
+        }]
+      }, {
+        "type": "string",
+        "fieldName": "title",
+        "label": "App title",
+        "tooltip": "Application title that appears in the main title area."
+      }, {
+        "type": "string",
+        "fieldName": "titleLink",
+        "label": "Title link",
+        "tooltip": "Specify a url if you want to specify a click through link for the title"
+      }]
+    }, {
+      "type": "subcategory",
+      "label": "Information panel for app"
+    }, {
+      "type": "paragraph",
+      "value": "Use these options to add a popup panel with descriptive information about the application. You can choose to have this information display when the app loads or display when users click an info button. When the app contains a title area the info button displays in the header. If the header is disabled then the info button is added to the top-right corner of the first map. "
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "splash",
+      "label": "About panel",
+      "items": [{
+        "placeHolder": "Defaults to web map title",
+        "label": "Open on launch:",
+        "fieldName": "splashOnStart",
+        "type": "boolean",
+        "tooltip": "Show about panel when the app launches"
+      }, {
+        "type": "string",
+        "label": "About panel title",
+        "tooltip": "Welcome your readers to the map by customizing the panel title",
+        "fieldName": "splashTitle"
+      }, {
+        "type": "string",
+        "label": "About panel text",
+        "tooltip": "Enter the information about your application here",
+        "fieldName": "splashDesc",
+        "stringFieldOption": "richtext"
+      }, {
+        "type": "string",
+        "label": "About panel button label",
+        "tooltip": "Customize the about panel button text",
+        "fieldName": "splashButtonLabel",
+        "placeholder": "OK"
+      }]
+    }, {
+      "type": "subcategory",
+      "label": "Map 1"
+    }, {
+      "type": "itembrowser",
+      "fieldName": "webmap",
+      "label": "Select",
+      "itemTypes": [
+        "Web Scene",
+        "Web Map"
+      ],
+      "defaultContent": true,
+      "showOnLoad": true
+    }, {
+      "type": "string",
+      "label": "Optional title for map 1",
+      "tooltip": "Add a title or small amount of descriptive text to the map.",
+      "fieldName": "webmapDesc",
+      "stringFieldOption": "richtext"
+    }, {
+      "type": "subcategory",
+      "label": "Map 2"
+    }, {
+      "type": "itembrowser",
+      "fieldName": "webscene",
+      "label": "Select",
+      "itemTypes": [
+        "Web Scene",
+        "Web Map"
+      ],
+      "defaultContent": true
+    }, {
+      "type": "string",
+      "label": "Optional title for map 2",
+      "tooltip": "Add a title or small amount of descriptive text to the map",
+      "fieldName": "websceneDesc",
+      "stringFieldOption": "richtext"
+
+    }, {
+      "type": "string",
+      "fieldName": "descPosition",
+      "label": "Specify the location of the map titles",
+      "tooltip": "Place the map titles at the specified location",
+      "options": [{
+        "label": "Bottom left",
+        "value": "bottom-left"
+      }, {
+        "label": "Bottom right",
+        "value": "bottom-right"
+      }, {
+        "label": "Top left",
+        "value": "top-left"
+      }, {
+        "label": "Top right",
+        "value": "top-right"
+      }]
+    }, {
+      "type": "appproxies"
+    }]
+  }, {
+    "category": "Theme",
+    "fields": [{
+      "type": "subcategory",
+      "label": "Header"
+    }, {
+      "type": "paragraph",
+      "value": "Set a background and text color for the application title area"
+    }, {
+      "type": "color",
+      "fieldName": "headerBackground",
+      "label": "Title background",
+      "tooltip": "Define the background color for the title area"
+    }, {
+      "type": "color",
+      "fieldName": "headerColor",
+      "label": "Title text color",
+      "tooltip": "Define the text color for the title area. This color is also used for any icons that appear in the title."
+    }, {
+      "type": "subcategory",
+      "label": "Panel Colors"
+    }, {
+      "type": "paragraph",
+      "value": "Define text and background colors for the splash screen and map title/description panels"
+    }, {
+      "type": "color",
+      "fieldName": "bodyBackground",
+      "label": "Panel background",
+      "tooltip": "Define the background color for the panel area"
+    }, {
+      "type": "color",
+      "fieldName": "panelColor",
+      "label": "Panel text color",
+      "tooltip": "Define the text color for the splash and map title/desc panels. "
+    }, {
+      "type": "subcategory",
+      "label": "Button Colors"
+    }, {
+      "type": "paragraph",
+      "value": "Define text and background colors for the button on the splash screen. These colors do not apply to the map buttons."
+    }, {
+      "type": "color",
+      "fieldName": "buttonBackground",
+      "label": "Button background",
+      "tooltip": "Define the background color for the splash panel button"
+    }, {
+      "type": "color",
+      "fieldName": "buttonColor",
+      "label": "Button text color",
+      "tooltip": "Define the text color for the splash panel button."
+    }, {
+      "type": "subcategory",
+      "label": "Scene Background Color"
+    }, {
+      "type": "color",
+      "fieldName": "sceneBackgroundColor",
+      "label": "Modify the background color for 3d maps",
+      "tooltip": "Specify a new background color for 3d maps"
+    }]
+  }, {
+    "category": "Options",
+    "fields": [{
+      "type": "subcategory",
+      "label": "Compare Options"
+    }, {
+      "type": "string",
+      "fieldName": "splitDirection",
+      "label": "Compare layout",
+      "tooltip": "Display the maps stacked vertically or shown side by side",
+      "options": [{
+        "label": "Stacked",
+        "value": "vertical"
+      }, {
+        "label": "Side by Side",
+        "value": "horizontal"
+      }]
+    }, {
+      "type": "conditional",
+      "fieldName": "syncViews",
+      "condition": false,
+      "label": "Synchronize maps",
+      "tooltip": "Synch the maps so that when you zoom,pan, rotate one map the other moves in sync.",
+      "items": [{
+        "type": "boolean",
+        "fieldName": "syncPopup",
+        "label": "Synchronize popups",
+        "tooltip": "Open a popup at the clicked location on both maps"
+      }]
+    }, {
+      "type": "paragraph",
+      "value": "Add an optional expand button that allows users to quickly expand/collapse the maps to view each full size"
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "expand",
+      "label": "Add expand button",
+      "tooltip": "The expand button allows users to quickly expand/collapse the maps to view each full size",
+      "items": [{
+        "type": "string",
+        "fieldName": "expandPosition",
+        "label": "Expand button position",
+        "tooltip": "Specify the location on the map where the expand button is placed.",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }]
+    }, {
+      "type": "subcategory",
+      "label": "Tools"
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "home",
+      "label": "Home tool",
+      "tooltip": "Add a tool that let's users quickly return to the default extent",
+      "items": [{
+        "type": "string",
+        "fieldName": "homePosition",
+        "label": "Home position",
+        "tooltip": "Configure the position of the home tool",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "bookmark",
+      "label": "Bookmarks or Slides",
+      "tooltip": "Display bookmarks for 2d maps and slides for 3d maps.",
+      "items": [{
+        "type": "string",
+        "fieldName": "bookmarkPosition",
+        "label": "Bookmark or Slide position",
+        "tooltip": "Configure the position of the bookmark or slide tool",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }]
+    }, {
+      "type": "conditional",
+      "fieldName": "search",
+      "label": "Search",
+      "condition": false,
+      "tooltip": "Add search capability",
+      "items": [{
+        "type": "paragraph",
+        "value": " If the maps are synced then the search tool will appear in the app title area. If the app title area is disabled or the maps are not synced use the options below to specify the search location."
+      }, {
+        "type": "string",
+        "fieldName": "searchPosition",
+        "label": "Search position",
+        "tooltip": "Configure the position of the search tool",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "legend",
+      "label": "Legend",
+      "items": [{
+        "type": "string",
+        "fieldName": "legendPosition",
+        "label": "Legend position",
+        "tooltip": "Configure the position of the legend tool",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "measure",
+      "label": "Add measurement tools",
+      "items": [{
+        "type": "string",
+        "fieldName": "measurePosition",
+        "label": "Measurement tools position",
+        "tooltip": "Configure the position of the measurement tools",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }, {
+        "type": "string",
+        "label": "Select measure tools",
+        "fieldName": "measureOptions",
+        "options": [{
+          "label": "Both",
+          "value": "both"
+        }, {
+          "label": "Line",
+          "value": "line"
+        }, {
+          "label": "Area",
+          "value": "area"
+        }]
+      }, {
+        "type": "boolean",
+        "label": "Add slice tool to measure panel for 3D maps",
+        "fieldName": "slice"
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "scalebar",
+      "label": "Scalebar",
+      "tooltip": "Add scalebar to 2d map",
+      "items": [{
+        "type": "string",
+        "fieldName": "scalebarPosition",
+        "label": "Scalebar position",
+        "tooltip": "Configure the position of the scalebar",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }]
+    }, {
+      "type": "conditional",
+      "fieldName": "share",
+      "condition": false,
+      "label": "Social Sharing",
+      "items": [{
+        "type": "options",
+        "fieldName": "sharePosition",
+        "label": "Share location",
+        "tooltip": "Select location for share control",
+        "options": [{
+            "label": "Top right",
+            "value": "top-right"
+          }, {
+            "label": "Top left",
+            "value": "top-left"
+          },
+          {
+            "label": "Bottom right",
+            "value": "bottom-right"
+          },
+          {
+            "label": "Bottom left",
+            "value": "bottom-left"
+          }
+        ]
+      }, {
+        "type": "boolean",
+        "fieldName": "shareIncludeServices",
+        "label": "Include social media options"
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "basemapToggle",
+      "label": "Add basemap toggle to map 1",
+      "items": [{
+        "type": "string",
+        "fieldName": "basemapTogglePosition",
+        "label": "Basemap toggle position",
+        "tooltip": "Specify the location of the basemap toggle button on map 1",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }, {
+        "type": "basemaps",
+        "fieldName": "basemapToggleNext",
+        "label": "Specify the alternate basemap for the toggle"
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "basemapToggle2",
+      "label": "Add basemap toggle to map 2",
+      "items": [{
+        "type": "string",
+        "fieldName": "basemapTogglePosition2",
+        "label": "Basemap toggle position",
+        "tooltip": "Specify the location of the basemap toggle button on map 2",
+        "options": [{
+          "label": "Bottom left",
+          "value": "bottom-left"
+        }, {
+          "label": "Bottom right",
+          "value": "bottom-right"
+        }, {
+          "label": "Top left",
+          "value": "top-left"
+        }, {
+          "label": "Top right",
+          "value": "top-right"
+        }]
+      }, {
+        "type": "basemaps",
+        "fieldName": "basemapToggleNext2",
+        "label": "Specify the alternate basemap for the toggle"
+      }]
+    }]
+  }],
+  "values": {
+    "descPosition": "bottom-right",
+    "splitDirection": "horizontal",
+    "expand": false,
+    "expandPosition": "bottom-right",
+    "headerPosition": "top",
+    "header": false,
+    "splash": false,
+    "splashOnStart": false,
+    "sceneBackgroundColor": null,
+    "syncViews": true,
+    "syncPopup": false,
+    "search": false,
+    "searchPosition": "top-left",
+    "share": false,
+    "sharePosition": "top-left",
+    "shareIncludeServices": false,
+    "legend": false,
+    "legendPosition": "top-right",
+    "bookmark": false,
+    "bookmarkPosition": "top-right",
+    "home": false,
+    "homePosition": "top-left",
+    "measure": false,
+    "slice": true,
+    "measureOptions": "both",
+    "measurePosition": "top-right",
+    "scalebar": false,
+    "scalebarPosition": "bottom-left",
+    "basemapToggle": false,
+    "basemapTogglePosition": "bottom-right",
+    "basemapToggleNext": "satellite",
+    "basemapToggle2": false,
+    "basemapTogglePosition2": "bottom-right",
+    "basemapToggleNext2": "satellite",
+    "headerBackground": "#fff",
+    "headerColor": "#4c4c4c",
+    "buttonColor": "#828282"
+  }
+}
