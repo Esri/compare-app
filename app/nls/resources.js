@@ -17,7 +17,8 @@ define({
       expand: "Expand Map",
       collapse: "Collapse Map",
       measureArea: "Measure area",
-      measureLine: "Measure line"
+      measureLine: "Measure line",
+      slice: "Slice"
     }
   }),
   "ar": 1,
@@ -54,6 +55,7 @@ define({
   "sv": 1,
   "tr": 1,
   "th": 1,
+  "uk": 1,
   "vi": 1,
   "zh-cn": 1,
   "zh-hk": 1,

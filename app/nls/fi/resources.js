@@ -16,6 +16,7 @@ define({
     "expand": "Laajenna kartta",
     "collapse": "Kutista kartta",
     "measureArea": "Mittaa alue",
-    "measureLine": "Mittaa viiva"
+    "measureLine": "Mittaa viiva",
+    "slice": "Å_Slice___________ö"
   }
 });

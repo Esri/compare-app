@@ -85,17 +85,44 @@
       "defaultContent": true,
       "showOnLoad": true
     }, {
-      "type": "string",
-      "label": "Optional title for map 1",
-      "tooltip": "Add a title or small amount of descriptive text to the map.",
-      "fieldName": "webmapDesc",
-      "stringFieldOption": "richtext"
+      "type": "conditional",
+      "fieldName": "useCustomExtentWebMap",
+      "condition": false,
+      "label": "Define a custom center and zoom for the first map",
+      "items": [{
+        "type": "extentMap",
+        "fieldName": "customExtentWebMap",
+        "label": "Click and zoom to define the custom center and zoom. When set, the location will appear on the map as a circle and the coordinates and zoom level will be shown below the map."
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "showDesc",
+      "label": "Optional text for map 1",
+      "items": [{
+        "type": "string",
+        "label": "Optional text for map 1",
+        "tooltip": "Add a title or descriptive text to the map.",
+        "fieldName": "webmapDesc",
+        "stringFieldOption": "richtext"
+      }, {
+        "type": "conditional",
+        "condition": false,
+        "label": "Add option to show/hide text",
+        "fieldName": "webmapDescExpand",
+        "items": [{
+          "type": "boolean",
+          "fieldName": "webmapDescOpenAtStart",
+          "label": "Show content when app loads"
+        }]
+      }]
     }, {
       "type": "subcategory",
       "label": "Map 2"
     }, {
       "type": "itembrowser",
       "fieldName": "webscene",
+      "conditions": ["4x"],
       "label": "Select",
       "itemTypes": [
         "Web Scene",
@@ -103,12 +130,37 @@
       ],
       "defaultContent": true
     }, {
-      "type": "string",
-      "label": "Optional title for map 2",
-      "tooltip": "Add a title or small amount of descriptive text to the map",
-      "fieldName": "websceneDesc",
-      "stringFieldOption": "richtext"
-
+      "type": "conditional",
+      "fieldName": "useCustomExtentWebScene",
+      "condition": false,
+      "label": "Specify a custom center and zoom for the second map",
+      "items": [{
+        "type": "extentMap",
+        "fieldName": "customExtentWebScene",
+        "label": "Click and zoom to define the custom center and zoom. When set, the location will appear on the map as a circle and the coordinates and zoom level will be shown below the map."
+      }]
+    }, {
+      "type": "conditional",
+      "condition": false,
+      "fieldName": "showDesc2",
+      "label": "Optional text for map 2",
+      "items": [{
+        "type": "string",
+        "label": "Optional text for map 2",
+        "tooltip": "Add a title or descriptive text to the map.",
+        "fieldName": "websceneDesc",
+        "stringFieldOption": "richtext"
+      }, {
+        "type": "conditional",
+        "condition": false,
+        "label": "Add option to show/hide text",
+        "fieldName": "websceneExpand",
+        "items": [{
+          "type": "boolean",
+          "fieldName": "websceneOpenAtStart",
+          "label": "Show content when app loads"
+        }]
+      }]
     }, {
       "type": "string",
       "fieldName": "descPosition",
@@ -429,19 +481,20 @@
         "label": "Share location",
         "tooltip": "Select location for share control",
         "options": [{
-            "label": "Top right",
-            "value": "top-right"
-          }, {
-            "label": "Top left",
-            "value": "top-left"
+            "label": "Bottom left",
+            "value": "bottom-left"
           },
           {
             "label": "Bottom right",
             "value": "bottom-right"
           },
           {
-            "label": "Bottom left",
-            "value": "bottom-left"
+            "label": "Top left",
+            "value": "top-left"
+          },
+          {
+            "label": "Top right",
+            "value": "top-right"
           }
         ]
       }, {
@@ -544,6 +597,12 @@
     "basemapToggleNext2": "satellite",
     "headerBackground": "#fff",
     "headerColor": "#4c4c4c",
-    "buttonColor": "#828282"
+    "buttonColor": "#828282",
+    "webmapDescExpand": false,
+    "webmapDescOpenAtStart": false,
+    "websceneDescExpand": false,
+    "websceneDescOpenAtStart": false,
+    "useCustomExtentWebMap": false,
+    "useCustomExtentWebScene": false
   }
 }

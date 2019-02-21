@@ -16,6 +16,7 @@ define({
     "expand": "Kaart vergroten",
     "collapse": "Kaart samenvouwen",
     "measureArea": "Oppervlakte meten",
-    "measureLine": "Lijn meten"
+    "measureLine": "Lijn meten",
+    "slice": "Ĳ_Slice___________ä"
   }
 });

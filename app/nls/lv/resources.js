@@ -16,6 +16,7 @@ define({
     "expand": "Izvērst karti",
     "collapse": "Sakļaut karti",
     "measureArea": "Mērījumu apgabals",
-    "measureLine": "Mērīšanas līnija"
+    "measureLine": "Mērīšanas līnija",
+    "slice": "ķ_Slice___________ū"
   }
 });

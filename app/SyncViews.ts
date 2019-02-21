@@ -1,6 +1,6 @@
 
 /*
-  Copyright 2018 Esri
+  Copyright 2017 Esri
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -12,7 +12,6 @@
   limitations under the License.​
 */
 import watchUtils = require("esri/core/watchUtils");
-import ScreenPoint = require("esri/geometry/ScreenPoint");
 import esri = __esri;
 export function syncPopups(views: (esri.MapView | esri.SceneView)[]): void {
   views.map((view, index) => {
@@ -32,13 +31,12 @@ function _syncPopup(view: esri.MapView | esri.SceneView, others: (esri.MapView |
   // Perform hit test on other views and display popup for features if found
   view.on("click", async (e: __esri.MapViewClickEvent) => {
     view.popup.close();
-    const screenPoint = new ScreenPoint({ x: e.x, y: e.y });
     const location = e.mapPoint;
-    await view.hitTest(screenPoint);
+    await view.hitTest(e);
 
     others.map(async other => {
       other.popup.close();
-      const response = await other.hitTest(screenPoint);
+      const response = await other.hitTest(e);
       const features: any = response.results.map((result) => {
         return result.graphic;
       });

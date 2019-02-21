@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Esri
+  Copyright 2017 Esri
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -18,7 +18,7 @@ import i18n = require("dojo/i18n!./nls/resources");
 const CSS = {
   loading: "configurable-application--loading"
 };
-
+import Expand = require("esri/widgets/Expand");
 import {
   createMapFromItem,
   createView,
@@ -56,6 +56,7 @@ class CompareApp {
 
   public init(base: ApplicationBase): void {
     if (!base) {
+      this._reportError("Unable to load application");
       console.error("ApplicationBase is not defined");
       return;
     }
@@ -77,9 +78,14 @@ class CompareApp {
       validWebMapItems.push(response.value);
     });
     const firstItem = validWebMapItems[0];
+    if (validWebMapItems.length < 2) {
+      // add error to console but don't display since app has at least one map
+      console.log("Application only has one valid map or scene to display");
+    }
 
     if (!firstItem) {
-      console.error("Could not load an item to display");
+      this._reportError("Unable to load webmap or web scene");
+      console.error("Unable to load webmap or web scene");
       return;
     }
     if (!config.title) {
@@ -117,6 +123,18 @@ class CompareApp {
         ...defaultViewProperties,
         ...mapContainer
       };
+
+      const useCustomExtent = (index === 0) ? this.base.config.useCustomExtentWebMap : this.base.config.useCustomExtentWebScene;
+      // Use custom extent if it's defined
+      if (useCustomExtent) {
+        const { level, coords } = (index === 0) ? this.base.config.customExtentWebMap : this.base.config.customExtentWebScene;
+        if (level) {
+          viewProperties.level = level;
+        }
+        if (coords && coords.latitude && coords.longitude) {
+          viewProperties.center = [coords.latitude, coords.longitude];
+        }
+      }
       // Change 3d background color
       if (item && item.type === "Web Scene" && base.config.sceneBackgroundColor) {
         viewProperties.alphaCompositingEnabled = true;
@@ -129,7 +147,18 @@ class CompareApp {
           atmosphereEnabled: false
         };
       }
-
+      if (item && item.type === "Web Map" && (base.config.minZoom || base.config.maxZoom)) {
+        viewProperties.constraints = {
+          minZoom: base.config.minZoom,
+          maxZoom: base.config.maxZoom
+        }
+      }
+      if (item && item.type === "Web Map" && (base.config.minScale || base.config.maxScale)) {
+        viewProperties.constraints = {
+          minScale: base.config.minScale,
+          maxScale: base.config.maxScale
+        }
+      }
       return await createMapFromItem({ item, appProxies }).then(map => {
         return createView({
           ...viewProperties,
@@ -220,21 +249,38 @@ class CompareApp {
     document.getElementsByTagName("head")[0].appendChild(style);
 
   }
-  _createDetailPanel(views) {
+  async _createDetailPanel(views) {
+
     // Add a panel with title and details for the maps
     views.forEach((view, index) => {
-      let desc = null;
+      let desc = null, openAtStart = false, expand = false;
       if (index === 0) {
         desc = this.base.config.webmapDesc;
+        openAtStart = this.base.config.webmapDescOpenAtStart;
+        expand = this.base.config.webmapDescExpand;
       } else if (index === 1) {
         desc = this.base.config.websceneDesc;
+        openAtStart = this.base.config.websceneDescOpenAtStart;
+        expand = this.base.config.websceneDescExpand;
       }
       if (desc) {
-        // TODO add panel color options
         const panel = document.createElement("div");
         panel.className = "panel panel-no-border panel-white app-body";
         panel.innerHTML = desc;
-        view.ui.add(panel, this.base.config.descPosition);
+
+        if (expand) {
+          const expandWidget = new Expand({
+            view,
+            content: panel
+          });
+          view.ui.add(expandWidget, this.base.config.descPosition);
+          if (openAtStart) {
+            expandWidget.expand();
+          }
+        } else {
+          view.ui.add(panel, this.base.config.descPosition);
+        }
+
       }
     });
   }
@@ -259,8 +305,8 @@ class CompareApp {
       return;
     }
 
-    const [Bookmarks, Slides, Expand] = await Promise.all([import("esri/widgets/Bookmarks"), import("./components/Slides"), import("esri/widgets/Expand")]);
-    if (Bookmarks && Slides && Expand) {
+    const [Bookmarks, Slides] = await Promise.all([import("esri/widgets/Bookmarks"), import("./components/Slides")]);
+    if (Bookmarks && Slides) {
       views.some((view) => {
         // create slides or bookmark
         const hasBookmarks = view.type === "3d" ? view.map.presentation && view.map.presentation.slides && view.map.presentation.slides.length : view.map.bookmarks && view.map.bookmarks.length;
@@ -298,13 +344,14 @@ class CompareApp {
       return;
     }
 
-    const [Legend, Expand] = await Promise.all([import("esri/widgets/Legend"), import("esri/widgets/Expand")]);
+    const [Legend] = await Promise.all([import("esri/widgets/Legend")]);
 
-    if (Legend && Expand) {
+    if (Legend) {
       views.some((view) => {
-        const legend = new Legend({ view, style: "card" });
+        const legend = new Legend({ view });
         const expand = new Expand({
           content: legend,
+          view,
           group: this.base.config.legendPosition,
           expandTooltip: legend.label,
           container: document.createElement("div")
@@ -396,7 +443,7 @@ class CompareApp {
       label = i18n.tools.measureLine;
     } else if (type === "slice") {
       icon = "esri-icon-hollow-eye";
-      label = "Slice"; // hard-code name for testing
+      label = i18n.tools.slice; // hard-code name for testing
     }
     button.dataset.type = type;
     button.classList.add(...["esri-widget--button", "esri-widget", "btn", "btn-white", "btn-grouped", icon]);
@@ -424,9 +471,9 @@ class CompareApp {
     if (!this.base.config.search) {
       return;
     }
-    const [Search, Expand] = await Promise.all([import("esri/widgets/Search"), import("esri/widgets/Expand")]);
+    const [Search] = await Promise.all([import("esri/widgets/Search")]);
 
-    if (Search && Expand) {
+    if (Search) {
       const synced = this.base.config.syncViews;
       views.some((view) => {
         const container = document.createElement("div");
@@ -434,6 +481,7 @@ class CompareApp {
         const search = new Search({ view });
         const expand = new Expand({
           content: search,
+          view,
           expandTooltip: search.label,
           container
         });
@@ -507,6 +555,11 @@ class CompareApp {
         });
       }
     });
+  }
+  _reportError(error) {
+    document.body.classList.remove(CSS.loading);
+    document.getElementById("viewContainer").innerHTML = error;
+    console.log("Error", error);
   }
 }
 export = CompareApp;

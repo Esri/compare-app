@@ -1,19 +1,43 @@
 {
   "appid": "",
-  "oauthappid": "",
+  "oauthappid": "arcgisWebApps",
   "proxyUrl": "",
   "portalUrl": "https://www.arcgis.com",
   "units": "",
   "webmap": "default",
   "webscene": "default",
+  "useCustomExtentWebMap": true,
+  "customExtentWebMap": {
+    "level": null,
+    "coords": {
+      "latitude": null,
+      "longitude": null
+    }
+  },
+  "useCustomExtentWebScene": false,
+  "customExtentWebScene": {
+    "level": null,
+    "coords": {
+      "latitude": null,
+      "longitude": null
+    }
+  },
   "webmapDesc": null,
+  "webmapDescExpand": false,
+  "webmapDescOpenAtStart": false,
   "websceneDesc": null,
+  "websceneDescExpand": false,
+  "websceneDescOpenAtStart": false,
+  "minZoom": null,
+  "maxZoom": null,
+  "minScale": null,
+  "maxScale": null,
   "descPosition": "bottom-right",
   "splitDirection": "horizontal",
   "expand": false,
   "expandPosition": "bottom-right",
   "title": null,
-  "titlelink": null,
+  "titleLink": null,
   "headerPosition": "top",
   "header": true,
   "splash": false,

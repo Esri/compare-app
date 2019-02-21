@@ -16,6 +16,7 @@ define({
     "expand": "Развернуть карту",
     "collapse": "Свернуть карту",
     "measureArea": "Измерить площадь",
-    "measureLine": "Измерить линию"
+    "measureLine": "Измерить линию",
+    "slice": "Ж_Slice___________Я"
   }
 });

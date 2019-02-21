@@ -16,6 +16,7 @@ define({
     "expand": "Rozšířit mapu",
     "collapse": "Sbalit mapu",
     "measureArea": "Měřit plochu",
-    "measureLine": "Změřit linii"
+    "measureLine": "Změřit linii",
+    "slice": "Ř_Slice___________ů"
   }
 });

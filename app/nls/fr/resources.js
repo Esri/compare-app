@@ -16,6 +16,7 @@ define({
     "expand": "Développer la carte",
     "collapse": "Réduire la carte",
     "measureArea": "Mesure de la surface",
-    "measureLine": "Mesurer la ligne"
+    "measureLine": "Mesurer la ligne",
+    "slice": "æ_Slice___________Â"
   }
 });

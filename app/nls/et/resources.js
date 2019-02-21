@@ -16,6 +16,7 @@ define({
     "expand": "Laienda kaarti",
     "collapse": "Ahenda kaart",
     "measureArea": "Mõõda pindala",
-    "measureLine": "Mõõda joont"
+    "measureLine": "Mõõda joont",
+    "slice": "Š_Slice___________ä"
   }
 });

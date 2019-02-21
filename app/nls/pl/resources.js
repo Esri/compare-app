@@ -16,6 +16,7 @@ define({
     "expand": "Poszerz mapę",
     "collapse": "Zwiń mapę",
     "measureArea": "Pomiar powierzchni",
-    "measureLine": "Pomiar linii"
+    "measureLine": "Pomiar linii",
+    "slice": "ł_Slice___________ą"
   }
 });

@@ -16,6 +16,7 @@ define({
     "expand": "Udvid kort",
     "collapse": "Skjul kort",
     "measureArea": "Opmål område",
-    "measureLine": "Opmål linje"
+    "measureLine": "Opmål linje",
+    "slice": "ø_Slice___________å"
   }
 });

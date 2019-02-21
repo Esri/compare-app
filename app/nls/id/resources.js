@@ -16,6 +16,7 @@ define({
     "expand": "Perluas Peta",
     "collapse": "Tutup Peta",
     "measureArea": "Ukur area",
-    "measureLine": "Ukur garis"
+    "measureLine": "Ukur garis",
+    "slice": "ng_Slice___________ny"
   }
 });

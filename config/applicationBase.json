@@ -34,7 +34,11 @@
     "oauthappid",
     "portalUrl",
     "viewpoint",
-    "webmap"
+    "webmap",
+    "minZoom",
+    "maxZoom",
+    "minScale",
+    "maxScale"
   ],
   "webMap": {
     "default": "3dc5f3cbe012429ebff4fc1b871bebd0",

@@ -16,6 +16,7 @@ define({
     "expand": "تمديد خريطة",
     "collapse": "طي الخريطة",
     "measureArea": "منطقة القياس",
-    "measureLine": "قياس خط"
+    "measureLine": "قياس خط",
+    "slice": "بيت_Slice___________لاحقة"
   }
 });

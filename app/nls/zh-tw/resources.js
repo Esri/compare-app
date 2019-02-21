@@ -16,6 +16,7 @@ define({
     "expand": "展開地圖",
     "collapse": "折疊地圖",
     "measureArea": "測量面積",
-    "measureLine": "測量線條"
+    "measureLine": "測量線條",
+    "slice": "試_Slice___________驗"
   }
 });

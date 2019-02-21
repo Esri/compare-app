@@ -16,6 +16,7 @@ define({
     "expand": "Utvid kart",
     "collapse": "Skjul kart",
     "measureArea": "Mål areal",
-    "measureLine": "Mål linje"
+    "measureLine": "Mål linje",
+    "slice": "å_Slice___________ø"
   }
 });

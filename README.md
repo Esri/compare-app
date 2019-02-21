@@ -16,8 +16,8 @@ This application has no data requirements.
 
 1. Download and unzip the .zip file or clone the repository.
 2. Web-enable the directory.
-3. Access the .html page to test. 
-4. Install node and npm then run npm install via the command line. 
+3. Access the .html page to test.
+4. Install node and npm then run npm install via the command line.
 5. Run npm start to generate js and css files from sass and typescript.
 5. Start customizing the app code.
 
@@ -26,7 +26,7 @@ This application has no data requirements.
 ## Deploying
 
 1. To deploy this application, download the template from Portal/ArcGIS Online and unzip it.
-2. Install npm and run npm install via command line then run npm run build. 
+2. Install npm and run npm install via command line then run npm run build.
 3. Copy the unzipped folder containing the web app template files, such as index.html, to your web server. You can rename the folder to change the URL through which users will access the application. By default the URL to the app will be `http://<Your Web Server>/<app folder name>/dist/index.html`
 4. Change the sharing host, found in defaults.js inside the config folder for the application, to the sharing URL for ArcGIS Online or Portal. For ArcGIS Online users, keep the default value of www.arcgis.com or specify the name of your organization.
   - ArcGIS Online Example:  `"sharinghost": location.protocol + "//" + “<your organization name>.maps.arcgis.com`
@@ -43,13 +43,33 @@ This application has no data requirements.
 ## View comparision options
 * **webmap**: Web map or scene for first map panel
 * **webscene**: Web map or scene for second map panel
+* **useCustomExtentWebMap**: When true a user defined custom extent can be specified for map 1.
+* **customExtentWebMap**: Specify a custom zoom level and center point that will be used to define the custom extent for map 1. ```{
+   "level":4,
+   "coords": {
+     "latitude": 15,
+     "longitude": 65
+   }
+ }```
+
+* **usecustomExtentWebScene**: When true a user defined custom extent can be specified for map 2.
+* **customExtentWebScene**: Specify a custom zoom level and center point that will be used to define the custom extent for map 2. ```{
+   "level":4,
+   "coords": {
+     "latitude": 15,
+     "longitude": 65
+   }
+ }```
 * **webmapDesc**: Title and/or small amount of descriptive text for map1.
 * **websceneDesc**: Title and/or small amount of descirptive text for map2
 * **descPosition"**: Valid values are *top-left|top-right|bottom-left|bottom-right*. The location on the map where the descriptive text displays
 * **splitDirection**: *horizontal|vertical*  Horizontal displays maps side by side. Vertical stacks maps.
 * **expand**: Add an expand button to each map so users can quickly expand/collapse the map to view it full size.
 * **expandPosition**: Valid values are *top-left|top-right|bottom-left|bottom-right*.  The location on the map where the expand button is added. The default value is bottom-right.
-
+* **minZoom**: Optionally set a minimum zoom level for 2d maps. This level applies to both map views. This value is only available to set via url parameter and may overwrite a custom extent if one was set.
+* **maxZoom**: Optionally set a maximum zoom level for 2d maps. this level applies to both map views. This value is only available to set via url parameter and may overwrite a custom extent if one was set.
+* **minScale**: Optionally set the minimum scale the user is allowed to zoom to for 2d maps. This scale value applies to both map views. This value is only available to set via url parameter and may overwrite a custom extent if one was set.
+* **maxScale**: Optionally set the maximum scale the user is allowed to zoom to for 2d maps. This scale value applies to both map views. This value is only available to set via url parameter and may overwrite a custom extent if one was set.
 
 ## Title and Toolbar options
 * **title**: Main title for the app

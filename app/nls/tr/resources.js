@@ -16,6 +16,7 @@ define({
     "expand": "Haritayı genişlet",
     "collapse": "Haritayı Daralt",
     "measureArea": "Alanı ölç",
-    "measureLine": "Çizgi ölç"
+    "measureLine": "Çizgi ölç",
+    "slice": "ı_Slice___________İ"
   }
 });

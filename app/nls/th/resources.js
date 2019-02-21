@@ -16,6 +16,7 @@ define({
     "expand": "ขยายแผนที่",
     "collapse": "ย่อแผนที่",
     "measureArea": "พื้นที่การวัด",
-    "measureLine": "เส้นการวัด"
+    "measureLine": "เส้นการวัด",
+    "slice": "ก้_Slice___________ษฺ"
   }
 });

@@ -16,6 +16,7 @@ define({
     "expand": "Επέκταση χάρτη",
     "collapse": "Σύμπτυξη χάρτη",
     "measureArea": "Μέτρηση εμβαδού",
-    "measureLine": "Μέτρηση γραμμής"
+    "measureLine": "Μέτρηση γραμμής",
+    "slice": "π_Slice___________Ω"
   }
 });

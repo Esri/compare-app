@@ -16,6 +16,7 @@ define({
     "expand": "Expandera karta",
     "collapse": "Dölj karta",
     "measureArea": "Mät area",
-    "measureLine": "Mät linje"
+    "measureLine": "Mät linje",
+    "slice": "Å_Slice___________ö"
   }
 });

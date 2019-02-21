@@ -16,6 +16,7 @@ define({
     "expand": "הרחב מפה",
     "collapse": "כווץ מפה",
     "measureArea": "מדידת אזור",
-    "measureLine": "מדידת קו"
+    "measureLine": "מדידת קו",
+    "slice": "כן_Slice___________ש"
   }
 });

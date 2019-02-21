@@ -16,6 +16,7 @@ define({
     "expand": "Espandi mappa",
     "collapse": "Comprimi mappa",
     "measureArea": "Misura area",
-    "measureLine": "Misura linea"
+    "measureLine": "Misura linea",
+    "slice": "é_Slice___________È"
   }
 });

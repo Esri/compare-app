@@ -16,6 +16,7 @@ define({
     "expand": "Mở rộng Bản đồ",
     "collapse": "Thu gọn Bản đồ",
     "measureArea": "Đo diện tích",
-    "measureLine": "Đo đường thẳng"
+    "measureLine": "Đo đường thẳng",
+    "slice": "Đ_Slice___________ớ"
   }
 });

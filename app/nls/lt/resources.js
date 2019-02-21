@@ -16,6 +16,7 @@ define({
     "expand": "Išplėsti žemėlapį",
     "collapse": "Sutraukti žemėlapį",
     "measureArea": "Matuoti plotą",
-    "measureLine": "Matuoti liniją"
+    "measureLine": "Matuoti liniją",
+    "slice": "Į_Slice___________š"
   }
 });

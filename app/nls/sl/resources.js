@@ -16,6 +16,7 @@ define({
     "expand": "Razširi karto",
     "collapse": "Strni karto",
     "measureArea": "Izmeri površino",
-    "measureLine": "Izmeri linijo"
+    "measureLine": "Izmeri linijo",
+    "slice": "Š_Slice___________č"
   }
 });

@@ -16,6 +16,7 @@ define({
     "expand": "맵 확장",
     "collapse": "맵 축소",
     "measureArea": "면적 측정",
-    "measureLine": "라인 측정"
+    "measureLine": "라인 측정",
+    "slice": "한_Slice___________빠"
   }
 });

@@ -1,15 +1,3 @@
-/*
-  Copyright 2018 Esri
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.​
-*/
 /// <amd-dependency path="esri/core/tsSupport/declareExtendsHelper" name="__extends" />
 /// <amd-dependency path="esri/core/tsSupport/decorateHelper" name="__decorate" />
 var __extends = (this && this.__extends) || (function () {
@@ -46,7 +34,7 @@ define(["require", "exports", "esri/core/tsSupport/declareExtendsHelper", "esri/
         }
         Header.prototype.render = function () {
             var titleLink = this.config.titleLink ? widget_1.tsx("span", null,
-                widget_1.tsx("a", { href: this.config.titleLink }, this.config.title)) : widget_1.tsx("span", null, this.config.title);
+                widget_1.tsx("a", { target: "_blank", rel: "noopener", href: this.config.titleLink }, this.config.title)) : widget_1.tsx("span", null, this.config.title);
             var titleContainer = widget_1.tsx("div", { class: "column-24 app-header" },
                 widget_1.tsx("div", null,
                     widget_1.tsx("a", { class: "skip-to-content", href: "#skip-to-content" }, "Skip To Content"),

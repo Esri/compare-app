@@ -16,6 +16,7 @@ define({
     "expand": "Extindere hartă",
     "collapse": "Restrângere hartă",
     "measureArea": "Măsurare suprafață",
-    "measureLine": "Măsurare linie"
+    "measureLine": "Măsurare linie",
+    "slice": "Ă_Slice___________ș"
   }
 });

@@ -16,6 +16,7 @@ define({
     "expand": "Térkép kibontása",
     "collapse": "Térkép összecsukása",
     "measureArea": "Területmérés",
-    "measureLine": "Vonalmérés"
+    "measureLine": "Vonalmérés",
+    "slice": "í_Slice___________ő"
   }
 });

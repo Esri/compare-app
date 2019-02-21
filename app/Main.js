@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Esri
+  Copyright 2017 Esri
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
@@ -53,7 +53,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/support/itemUtils", "ApplicationBase/support/domHelper", "./SplitViews"], function (require, exports, i18n, itemUtils_1, domHelper_1, SplitViews_1) {
+define(["require", "exports", "dojo/i18n!./nls/resources", "esri/widgets/Expand", "ApplicationBase/support/itemUtils", "ApplicationBase/support/domHelper", "./SplitViews"], function (require, exports, i18n, Expand, itemUtils_1, domHelper_1, SplitViews_1) {
     "use strict";
     var CSS = {
         loading: "configurable-application--loading"
@@ -79,6 +79,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
         CompareApp.prototype.init = function (base) {
             var _this = this;
             if (!base) {
+                this._reportError("Unable to load application");
                 console.error("ApplicationBase is not defined");
                 return;
             }
@@ -98,8 +99,13 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                 validWebMapItems.push(response.value);
             });
             var firstItem = validWebMapItems[0];
+            if (validWebMapItems.length < 2) {
+                // add error to console but don't display since app has at least one map
+                console.log("Application only has one valid map or scene to display");
+            }
             if (!firstItem) {
-                console.error("Could not load an item to display");
+                this._reportError("Unable to load webmap or web scene");
+                console.error("Unable to load webmap or web scene");
                 return;
             }
             if (!config.title) {
@@ -119,9 +125,9 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                 : null;
             var defaultViewProperties = itemUtils_1.getConfigViewProperties(config);
             var viewResults = Promise.all(validWebMapItems.map(function (item, index) { return __awaiter(_this, void 0, void 0, function () {
-                var container, mapContainer, viewProperties;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var container, mapContainer, viewProperties, useCustomExtent, _a, level, coords;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
                             container = document.createElement("div");
                             container.id = "map_" + index;
@@ -130,6 +136,17 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                                 container: container
                             };
                             viewProperties = __assign({}, defaultViewProperties, mapContainer);
+                            useCustomExtent = (index === 0) ? this.base.config.useCustomExtentWebMap : this.base.config.useCustomExtentWebScene;
+                            // Use custom extent if it's defined
+                            if (useCustomExtent) {
+                                _a = (index === 0) ? this.base.config.customExtentWebMap : this.base.config.customExtentWebScene, level = _a.level, coords = _a.coords;
+                                if (level) {
+                                    viewProperties.level = level;
+                                }
+                                if (coords && coords.latitude && coords.longitude) {
+                                    viewProperties.center = [coords.latitude, coords.longitude];
+                                }
+                            }
                             // Change 3d background color
                             if (item && item.type === "Web Scene" && base.config.sceneBackgroundColor) {
                                 viewProperties.alphaCompositingEnabled = true;
@@ -142,12 +159,24 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                                     atmosphereEnabled: false
                                 };
                             }
+                            if (item && item.type === "Web Map" && (base.config.minZoom || base.config.maxZoom)) {
+                                viewProperties.constraints = {
+                                    minZoom: base.config.minZoom,
+                                    maxZoom: base.config.maxZoom
+                                };
+                            }
+                            if (item && item.type === "Web Map" && (base.config.minScale || base.config.maxScale)) {
+                                viewProperties.constraints = {
+                                    minScale: base.config.minScale,
+                                    maxScale: base.config.maxScale
+                                };
+                            }
                             return [4 /*yield*/, itemUtils_1.createMapFromItem({ item: item, appProxies: appProxies }).then(function (map) {
                                     return itemUtils_1.createView(__assign({}, viewProperties, { map: map })).then(function (view) {
                                         return view.when();
                                     });
                                 })];
-                        case 1: return [2 /*return*/, _a.sent()];
+                        case 1: return [2 /*return*/, _b.sent()];
                     }
                 });
             }); }));
@@ -246,23 +275,43 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
             document.getElementsByTagName("head")[0].appendChild(style);
         };
         CompareApp.prototype._createDetailPanel = function (views) {
-            var _this = this;
-            // Add a panel with title and details for the maps
-            views.forEach(function (view, index) {
-                var desc = null;
-                if (index === 0) {
-                    desc = _this.base.config.webmapDesc;
-                }
-                else if (index === 1) {
-                    desc = _this.base.config.websceneDesc;
-                }
-                if (desc) {
-                    // TODO add panel color options
-                    var panel = document.createElement("div");
-                    panel.className = "panel panel-no-border panel-white app-body";
-                    panel.innerHTML = desc;
-                    view.ui.add(panel, _this.base.config.descPosition);
-                }
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    // Add a panel with title and details for the maps
+                    views.forEach(function (view, index) {
+                        var desc = null, openAtStart = false, expand = false;
+                        if (index === 0) {
+                            desc = _this.base.config.webmapDesc;
+                            openAtStart = _this.base.config.webmapDescOpenAtStart;
+                            expand = _this.base.config.webmapDescExpand;
+                        }
+                        else if (index === 1) {
+                            desc = _this.base.config.websceneDesc;
+                            openAtStart = _this.base.config.websceneDescOpenAtStart;
+                            expand = _this.base.config.websceneDescExpand;
+                        }
+                        if (desc) {
+                            var panel = document.createElement("div");
+                            panel.className = "panel panel-no-border panel-white app-body";
+                            panel.innerHTML = desc;
+                            if (expand) {
+                                var expandWidget = new Expand({
+                                    view: view,
+                                    content: panel
+                                });
+                                view.ui.add(expandWidget, _this.base.config.descPosition);
+                                if (openAtStart) {
+                                    expandWidget.expand();
+                                }
+                            }
+                            else {
+                                view.ui.add(panel, _this.base.config.descPosition);
+                            }
+                        }
+                    });
+                    return [2 /*return*/];
+                });
             });
         };
         CompareApp.prototype._addBasemapToggle = function (views) {
@@ -294,7 +343,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
         };
         CompareApp.prototype._addBookmarks = function (views) {
             return __awaiter(this, void 0, void 0, function () {
-                var _a, Bookmarks, Slides, Expand;
+                var _a, Bookmarks, Slides;
                 var _this = this;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
@@ -302,10 +351,10 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                             if (!this.base.config.bookmark) {
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_4, reject_4) { require(["esri/widgets/Bookmarks"], resolve_4, reject_4); }), new Promise(function (resolve_5, reject_5) { require(["./components/Slides"], resolve_5, reject_5); }), new Promise(function (resolve_6, reject_6) { require(["esri/widgets/Expand"], resolve_6, reject_6); })])];
+                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_4, reject_4) { require(["esri/widgets/Bookmarks"], resolve_4, reject_4); }), new Promise(function (resolve_5, reject_5) { require(["./components/Slides"], resolve_5, reject_5); })])];
                         case 1:
-                            _a = _b.sent(), Bookmarks = _a[0], Slides = _a[1], Expand = _a[2];
-                            if (Bookmarks && Slides && Expand) {
+                            _a = _b.sent(), Bookmarks = _a[0], Slides = _a[1];
+                            if (Bookmarks && Slides) {
                                 views.some(function (view) {
                                     // create slides or bookmark
                                     var hasBookmarks = view.type === "3d" ? view.map.presentation && view.map.presentation.slides && view.map.presentation.slides.length : view.map.bookmarks && view.map.bookmarks.length;
@@ -338,7 +387,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                             if (!this.base.config.home) {
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, new Promise(function (resolve_7, reject_7) { require(["esri/widgets/Home"], resolve_7, reject_7); })];
+                            return [4 /*yield*/, new Promise(function (resolve_6, reject_6) { require(["esri/widgets/Home"], resolve_6, reject_6); })];
                         case 1:
                             Home = _a.sent();
                             if (Home) {
@@ -354,22 +403,23 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
         };
         CompareApp.prototype._addLegend = function (views) {
             return __awaiter(this, void 0, void 0, function () {
-                var _a, Legend, Expand;
+                var Legend;
                 var _this = this;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
                         case 0:
                             if (!this.base.config.legend) {
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_8, reject_8) { require(["esri/widgets/Legend"], resolve_8, reject_8); }), new Promise(function (resolve_9, reject_9) { require(["esri/widgets/Expand"], resolve_9, reject_9); })])];
+                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_7, reject_7) { require(["esri/widgets/Legend"], resolve_7, reject_7); })])];
                         case 1:
-                            _a = _b.sent(), Legend = _a[0], Expand = _a[1];
-                            if (Legend && Expand) {
+                            Legend = (_a.sent())[0];
+                            if (Legend) {
                                 views.some(function (view) {
-                                    var legend = new Legend({ view: view, style: "card" });
+                                    var legend = new Legend({ view: view });
                                     var expand = new Expand({
                                         content: legend,
+                                        view: view,
                                         group: _this.base.config.legendPosition,
                                         expandTooltip: legend.label,
                                         container: document.createElement("div")
@@ -394,7 +444,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                             if (!this.base.config.measure) {
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_10, reject_10) { require(["esri/widgets/AreaMeasurement3D"], resolve_10, reject_10); }), new Promise(function (resolve_11, reject_11) { require(["esri/widgets/DirectLineMeasurement3D"], resolve_11, reject_11); }), new Promise(function (resolve_12, reject_12) { require(["esri/widgets/AreaMeasurement2D"], resolve_12, reject_12); }), new Promise(function (resolve_13, reject_13) { require(["esri/widgets/DistanceMeasurement2D"], resolve_13, reject_13); }), new Promise(function (resolve_14, reject_14) { require(["esri/widgets/Slice"], resolve_14, reject_14); })])];
+                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_8, reject_8) { require(["esri/widgets/AreaMeasurement3D"], resolve_8, reject_8); }), new Promise(function (resolve_9, reject_9) { require(["esri/widgets/DirectLineMeasurement3D"], resolve_9, reject_9); }), new Promise(function (resolve_10, reject_10) { require(["esri/widgets/AreaMeasurement2D"], resolve_10, reject_10); }), new Promise(function (resolve_11, reject_11) { require(["esri/widgets/DistanceMeasurement2D"], resolve_11, reject_11); }), new Promise(function (resolve_12, reject_12) { require(["esri/widgets/Slice"], resolve_12, reject_12); })])];
                         case 1:
                             _a = _b.sent(), AreaMeasurement3D = _a[0], DirectLineMeasurement3D = _a[1], AreaMeasurement2D = _a[2], DistanceMeasurement2D = _a[3], Slice = _a[4];
                             if (AreaMeasurement3D && DirectLineMeasurement3D && AreaMeasurement2D && DistanceMeasurement2D && Slice) {
@@ -479,7 +529,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
             }
             else if (type === "slice") {
                 icon = "esri-icon-hollow-eye";
-                label = "Slice"; // hard-code name for testing
+                label = i18n.tools.slice; // hard-code name for testing
             }
             button.dataset.type = type;
             (_a = button.classList).add.apply(_a, ["esri-widget--button", "esri-widget", "btn", "btn-white", "btn-grouped", icon]);
@@ -497,7 +547,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                             if (!this.base.config.scalebar) {
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, new Promise(function (resolve_15, reject_15) { require(["esri/widgets/ScaleBar"], resolve_15, reject_15); })];
+                            return [4 /*yield*/, new Promise(function (resolve_13, reject_13) { require(["esri/widgets/ScaleBar"], resolve_13, reject_13); })];
                         case 1:
                             Scalebar = _a.sent();
                             if (Scalebar) {
@@ -516,18 +566,18 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
         };
         CompareApp.prototype._addSearch = function (views) {
             return __awaiter(this, void 0, void 0, function () {
-                var _a, Search, Expand, synced_1;
+                var Search, synced_1;
                 var _this = this;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
                         case 0:
                             if (!this.base.config.search) {
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_16, reject_16) { require(["esri/widgets/Search"], resolve_16, reject_16); }), new Promise(function (resolve_17, reject_17) { require(["esri/widgets/Expand"], resolve_17, reject_17); })])];
+                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_14, reject_14) { require(["esri/widgets/Search"], resolve_14, reject_14); })])];
                         case 1:
-                            _a = _b.sent(), Search = _a[0], Expand = _a[1];
-                            if (Search && Expand) {
+                            Search = (_a.sent())[0];
+                            if (Search) {
                                 synced_1 = this.base.config.syncViews;
                                 views.some(function (view) {
                                     var _a;
@@ -536,6 +586,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                                     var search = new Search({ view: view });
                                     var expand = new Expand({
                                         content: search,
+                                        view: view,
                                         expandTooltip: search.label,
                                         container: container
                                     });
@@ -569,7 +620,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                             if (!this.base.config.share) {
                                 return [2 /*return*/];
                             }
-                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_18, reject_18) { require(["./components/Share/ShareWidget"], resolve_18, reject_18); }), new Promise(function (resolve_19, reject_19) { require(["./components/Share/Share/ShareFeatures"], resolve_19, reject_19); })])];
+                            return [4 /*yield*/, Promise.all([new Promise(function (resolve_15, reject_15) { require(["./components/Share/ShareWidget"], resolve_15, reject_15); }), new Promise(function (resolve_16, reject_16) { require(["./components/Share/Share/ShareFeatures"], resolve_16, reject_16); })])];
                         case 1:
                             _a = _b.sent(), Share = _a[0], ShareFeatures = _a[1];
                             if (Share && ShareFeatures) {
@@ -604,7 +655,7 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                 var Sync;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, new Promise(function (resolve_20, reject_20) { require(["./SyncViews"], resolve_20, reject_20); })];
+                        case 0: return [4 /*yield*/, new Promise(function (resolve_17, reject_17) { require(["./SyncViews"], resolve_17, reject_17); })];
                         case 1:
                             Sync = _a.sent();
                             if (Sync !== null) {
@@ -635,6 +686,11 @@ define(["require", "exports", "dojo/i18n!./nls/resources", "ApplicationBase/supp
                     });
                 }
             });
+        };
+        CompareApp.prototype._reportError = function (error) {
+            document.body.classList.remove(CSS.loading);
+            document.getElementById("viewContainer").innerHTML = error;
+            console.log("Error", error);
         };
         return CompareApp;
     }());

@@ -33,7 +33,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-define(["require", "exports", "esri/core/watchUtils", "esri/geometry/ScreenPoint"], function (require, exports, watchUtils, ScreenPoint) {
+define(["require", "exports", "esri/core/watchUtils"], function (require, exports, watchUtils) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function syncPopups(views) {
@@ -56,15 +56,14 @@ define(["require", "exports", "esri/core/watchUtils", "esri/geometry/ScreenPoint
         var _this = this;
         // Perform hit test on other views and display popup for features if found
         view.on("click", function (e) { return __awaiter(_this, void 0, void 0, function () {
-            var screenPoint, location;
+            var location;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         view.popup.close();
-                        screenPoint = new ScreenPoint({ x: e.x, y: e.y });
                         location = e.mapPoint;
-                        return [4 /*yield*/, view.hitTest(screenPoint)];
+                        return [4 /*yield*/, view.hitTest(e)];
                     case 1:
                         _a.sent();
                         others.map(function (other) { return __awaiter(_this, void 0, void 0, function () {
@@ -73,7 +72,7 @@ define(["require", "exports", "esri/core/watchUtils", "esri/geometry/ScreenPoint
                                 switch (_a.label) {
                                     case 0:
                                         other.popup.close();
-                                        return [4 /*yield*/, other.hitTest(screenPoint)];
+                                        return [4 /*yield*/, other.hitTest(e)];
                                     case 1:
                                         response = _a.sent();
                                         features = response.results.map(function (result) {

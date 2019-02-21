@@ -16,6 +16,7 @@ define({
     "expand": "展开地图",
     "collapse": "折叠地图",
     "measureArea": "测量面积",
-    "measureLine": "测量线"
+    "measureLine": "测量线",
+    "slice": "试_Slice___________验"
   }
 });

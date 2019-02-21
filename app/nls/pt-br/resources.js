@@ -16,6 +16,7 @@ define({
     "expand": "Expandir Mapa",
     "collapse": "Recolher Mapa",
     "measureArea": "Medir área",
-    "measureLine": "Medir linha"
+    "measureLine": "Medir linha",
+    "slice": "ã_Slice___________Ç"
   }
 });

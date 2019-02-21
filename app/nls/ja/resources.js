@@ -16,6 +16,7 @@ define({
     "expand": "マップの拡大",
     "collapse": "マップを折りたたむ",
     "measureArea": "面積の計測",
-    "measureLine": "ラインの計測"
+    "measureLine": "ラインの計測",
+    "slice": "須_Slice___________鷗"
   }
 });
