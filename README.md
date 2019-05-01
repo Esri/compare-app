@@ -26,7 +26,7 @@ This application has no data requirements.
 ## Deploying
 
 1. To deploy this application, download the template from Portal/ArcGIS Online and unzip it.
-2. Install npm and run npm install via command line then run npm run build.
+2. Install npm and run npm install via command line then run `npm run deploy`.
 3. Copy the unzipped folder containing the web app template files, such as index.html, to your web server. You can rename the folder to change the URL through which users will access the application. By default the URL to the app will be `http://<Your Web Server>/<app folder name>/dist/index.html`
 4. Change the sharing host, found in defaults.js inside the config folder for the application, to the sharing URL for ArcGIS Online or Portal. For ArcGIS Online users, keep the default value of www.arcgis.com or specify the name of your organization.
   - ArcGIS Online Example:  `"sharinghost": location.protocol + "//" + “<your organization name>.maps.arcgis.com`
